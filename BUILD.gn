@@ -1,0 +1,27 @@
+executable("phantomium") {
+  sources = [
+    "app/main.cc",
+    "app/phantomium.cc",
+    "app/phantomium.h",
+    "app/phantomium_switches.cc",
+    "app/phantomium_switches.h",
+    "lib/phantomium_page.cc",
+    "lib/phantomium_page.h"
+  ]
+
+  deps = [
+    "//headless:headless_lib",
+    "//content/public/browser",
+    "//content/public/common",
+    "//build/config:exe_and_shlib_deps",
+    "//skia",  # we need this to override font render hinting in headless build
+    "//ui/gfx/geometry"
+  ]
+
+  if (is_win) {
+    deps += [
+      "//build/win:default_exe_manifest",
+      "//content:sandbox_helper_win"
+    ]
+  }
+}
